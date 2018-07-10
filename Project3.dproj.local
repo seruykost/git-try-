@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2017.04.09 18:55:28.456,=C:\Users\Zver\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2017.04.09 19:26:39.295,C:\таймер\Unit3.dfm=C:\Users\Zver\Documents\Embarcadero\Studio\Projects\Unit3.dfm</Transaction>
+    <Transaction>2017.04.09 19:26:39.295,C:\таймер\Unit3.pas=C:\Users\Zver\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2017.04.09 19:26:40.040,C:\таймер\Project3.dproj=C:\Users\Zver\Documents\Embarcadero\Studio\Projects\Project3.dproj</Transaction>
+    <Transaction>2017.04.09 20:19:07.686,=C:\таймер\Unit1.pas</Transaction>
+    <Transaction>2017.04.09 20:21:44.970,=C:\таймер\Unit2.pas</Transaction>
+  </Transactions>
+</BorlandProject>

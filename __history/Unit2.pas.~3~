@@ -1,0 +1,101 @@
+unit Unit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+
+type
+  TForm2 = class(TForm)
+    Memo1: TMemo;
+    Button1: TButton;
+    Shape1: TShape;
+    Button2: TButton;
+    Timer1: TTimer;
+    Timer2: TTimer;
+    procedure Button2Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+  Fr : Int64 = 0;
+  t : Int64 = 0;
+  Dt : Extended = 0;
+  out : Extended = 0;
+  clocks:shortint;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+  QueryPerformanceCounter(t);
+  out := (t - Dt) / (Fr);
+  if (Dt = 0) or (shape1.Brush.Color <>cllime) then memo1.Lines.Add('fail') else memo1.Lines.Add(floattostr(out*1000));
+  Dt:=0;
+  t:=0;
+  shape1.Brush.Color:=clnone;
+  timer2.Enabled:=false;
+  clocks:= clocks + 1;
+  if clocks = 20 then  begin
+    Timer1.Enabled := false;
+    Button2.Show;
+  end;
+end;
+
+procedure TForm2.Button2Click(Sender: TObject);
+begin
+QueryPerformanceFrequency(Fr);
+  if Fr = 0 then begin
+    ShowMessage('Ќе удалось получить сведени€ о тактовой частоте.');
+    Exit;
+  end;
+  Timer1.Interval:=(40+Random(60))*100;
+  Timer1.Enabled:=true;
+  Button2.Hide;
+  Memo1.Clear;
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+Application.Terminate;
+end;
+
+procedure TForm2.Timer1Timer(Sender: TObject);
+var
+m: integer;
+begin
+  randomize;
+  m:= random(3);
+  case m of
+  0: shape1.Brush.Color:=clred;
+  1: shape1.Brush.Color:=cllime;
+  2: shape1.Brush.Color:=clyellow;
+  3: shape1.Brush.Color:=clblue;
+  end;
+  QueryPerformanceCounter(t);
+  Dt := t;
+  Timer1.Interval:=(50+Random(50))*100;
+  timer2.Enabled:=true;
+end;
+
+procedure TForm2.Timer2Timer(Sender: TObject);
+begin
+  shape1.Brush.Color:=clnone;
+  timer2.Enabled:=false;
+  memo1.Lines.Add('fail');
+  clocks:= clocks + 1;
+
+end;
+
+end.

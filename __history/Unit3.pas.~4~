@@ -1,0 +1,72 @@
+unit Unit3;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+
+type
+  TForm3 = class(TForm)
+    Button1: TButton;
+    Memo1: TMemo;
+    Button2: TButton;
+    Shape1: TShape;
+    Timer1: TTimer;
+    procedure Button1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Button2Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+  Fr, t : Int64;
+  Dt : Extended;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm3.Button1Click(Sender: TObject);
+begin
+  QueryPerformanceCounter(t);
+  Dt := (t - Dt) / (Fr);
+  memo1.Lines.Add(floattostr(Dt));
+  Dt:=0;
+  t:=0;
+  shape1.Brush.Color:=clred;
+end;
+
+procedure TForm3.Button2Click(Sender: TObject);
+begin
+QueryPerformanceFrequency(Fr);
+  if Fr = 0 then begin
+    ShowMessage('Ќе удалось получить сведени€ о тактовой частоте.');
+    Exit;
+  end;
+  Timer1.Interval:=(40+Random(60))*100;
+  Timer1.Enabled:=true;
+  Button2.Hide;
+end;
+
+procedure TForm3.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if key = 	$0D then Button1.Click;
+
+end;
+
+procedure TForm3.Timer1Timer(Sender: TObject);
+begin
+  shape1.Brush.Color:=clgreen;
+  QueryPerformanceCounter(t);
+  Dt := t;
+  Timer1.Interval:=(40+Random(60))*100;
+end;
+
+end.
